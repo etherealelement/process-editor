@@ -8,17 +8,26 @@ export type ProcessListItem = {
 
 export function useProcessList() {
   const [processList, setProcessList] = useState<ProcessListItem[]>([]);
-
-  useEffect(() => {
-    processApi.list().then(setProcessList);
-  }, []);
-
-  const createProcess = (name: string) => {
-    setProcessList([...processList, { id: String(Date.now()), name }]);
+  const [isLoading, setIsLoading] = useState(true);
+  const fetchList = () => {
+    processApi
+      .list()
+      .then(setProcessList)
+      .finally(() => setIsLoading(false));
   };
 
-  const deleteProcess = (id: string) => {
-    setProcessList((item) => item.filter((item) => item.id !== id));
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const createProcess = async (name: string) => {
+    await processApi.create(name);
+    fetchList();
+  };
+
+  const deleteProcess = async (id: string) => {
+    await processApi.delete(id);
+    fetchList();
   };
 
   const list = processList.map((item) => ({
@@ -30,5 +39,6 @@ export function useProcessList() {
     list,
     createProcess,
     deleteProcess,
+    isLoading,
   };
 }
