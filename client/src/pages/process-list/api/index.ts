@@ -1,10 +1,10 @@
 import { ProcessListItem } from "../model/use-process-list";
 
 export const processApi = {
-  async list() {
-    return await fetch("/api/processes").then(
-      (res) => res.json() as Promise<ProcessListItem[]>
-    );
+  async list(signal?: AbortSignal) {
+    return await fetch("/api/processes", {
+      signal,
+    }).then((res) => res.json() as Promise<ProcessListItem[]>);
   },
 
   async create(name: string) {
