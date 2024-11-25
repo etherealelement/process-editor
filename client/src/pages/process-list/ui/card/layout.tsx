@@ -1,10 +1,10 @@
-import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import styles from "./styles.module.css";
 
 export function Layout({
-  onDelete,
-  name,
   id,
+  name,
+  onDelete,
 }: {
   id: string;
   name: string;
@@ -12,10 +12,10 @@ export function Layout({
 }) {
   return (
     <div className={styles.root}>
-      <div className={styles.title}>{name}</div>
+      <div className={styles.name}>{name}</div>
       <Link className={styles.link} to={`/process/${id}`}></Link>
       <button className={styles.deleteBtn} onClick={onDelete}>
-        Delete
+        delete
       </button>
     </div>
   );

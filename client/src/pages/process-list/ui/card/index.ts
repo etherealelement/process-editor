@@ -1,1 +1,1 @@
-export { Layout as ProcessCard } from "./layout.tsx";
+export { Layout as Card } from "./layout";

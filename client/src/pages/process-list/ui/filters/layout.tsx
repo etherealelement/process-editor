@@ -1,22 +1,22 @@
 import styles from "./styles.module.css";
 
 export function Layout({
-  onQChange,
   q,
+  onQChange,
 }: {
   q: string;
-  onQChange: (name: string) => void;
+  onQChange: (q: string) => void;
 }) {
   return (
     <div className={styles.root}>
       <input
         className={styles.input}
-        placeholder="process name search..."
-        type="text"
         name="name"
+        type="text"
         value={q}
         onChange={(e) => onQChange(e.target.value)}
-        required={true}
+        placeholder="process name search..."
+        required
       />
     </div>
   );

@@ -9,9 +9,16 @@ export function useFilters(
 ) {
   const [q, setQ] = useState("");
   const defferedQ = useDeferredValue(q);
-  const filteredList =
-    items.filter((item) =>
-      item.name.toLowerCase().includes(defferedQ.toLowerCase())
-    ) || [];
-  return [filteredList, { q, setQ }] as const;
+
+  const filteredList = items.filter((item) =>
+    item.name.toLowerCase().includes(defferedQ.toLowerCase())
+  );
+
+  return [
+    filteredList,
+    {
+      q,
+      setQ,
+    },
+  ] as const;
 }

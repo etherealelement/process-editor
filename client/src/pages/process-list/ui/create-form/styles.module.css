@@ -1,14 +1,13 @@
 .root {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  margin-bottom: 40px;
 }
 
 .btn {
   padding: 5px 10px;
   background-color: #000;
-  color: #Fff;
+  color: #fff;
+  border: none;
   border-radius: 5px;
 }
 

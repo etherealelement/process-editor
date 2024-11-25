@@ -1,10 +1,10 @@
-import { ProcessListItem } from "../model/use-process-list";
+import { ProcessListItem } from "../model/use-list";
 
 export const processApi = {
-  async list(signal?: AbortSignal) {
-    return await fetch("/api/processes", {
-      signal,
-    }).then((res) => res.json() as Promise<ProcessListItem[]>);
+  async list() {
+    return await fetch("/api/processes").then(
+      (res) => res.json() as Promise<ProcessListItem[]>
+    );
   },
 
   async create(name: string) {
@@ -20,9 +20,6 @@ export const processApi = {
   async delete(id: string) {
     return await fetch(`/api/processes/${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
   },
 };
