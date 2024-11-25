@@ -1,32 +1,30 @@
 .root {
   display: flex;
   flex-direction: column;
+
   padding: 10px;
   border: 1px solid #000;
   border-radius: 5px;
-  position: relative;
   gap: 10px;
+  position: relative;
 }
 
-.title {
+.name {
   font-size: 20px;
   font-weight: bold;
-}
-
-
-
-.deleteBtn {
-  padding: 5px 10px;
-  background-color: #000;
-  position: relative;
-  z-index: 2;
-  color: #Fff;
-  border-radius: 5px;
 }
 
 .link {
   position: absolute;
   inset: 0;
-  font-size: 20px;
-  font-weight: bold;
+}
+
+.deleteBtn {
+  position: relative;
+  z-index: 1;
+  padding: 5px 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
 }

@@ -1,32 +1,27 @@
-import { CreateProcessForm } from "./ui/create-form";
-import { Root } from "./ui/root";
-import { Filters } from "./ui/filters";
-import { ProcessCard } from "./ui/card";
-import { useProcessList } from "./model/use-process-list";
 import { useFilters } from "./model/use-filters";
+import { useList } from "./model/use-list";
+import { Card } from "./ui/card";
+import { CreateForm } from "./ui/create-form";
+import { Filters } from "./ui/filters";
+import { Root } from "./ui/root";
+
 export function Page() {
-  const { list, createProcess, deleteProcess, isLoading } = useProcessList();
-  const [filteredList, { q, setQ }] = useFilters(list);
+  const list = useList();
+  const [filteredList, filters] = useFilters(list.items);
+
   return (
     <Root
-      title="process-list"
-      isLoading={isLoading}
-      createForm={
-        <CreateProcessForm onSubmit={createProcess}></CreateProcessForm>
-      }
-      filters={<Filters q={q} onQChange={setQ}></Filters>}
-      cards={
-        <>
-          {filteredList.map((item) => (
-            <ProcessCard
-              id={item.id}
-              key={item.id}
-              name={item.name}
-              onDelete={() => deleteProcess(item.id)}
-            ></ProcessCard>
-          ))}
-        </>
-      }
-    ></Root>
+      isLoading={list.isLoading}
+      createForm={<CreateForm onSubmit={list.create} />}
+      filters={<Filters q={filters.q} onQChange={filters.setQ} />}
+      cards={filteredList.map((item) => (
+        <Card
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          onDelete={item.onDelete}
+        />
+      ))}
+    />
   );
 }
