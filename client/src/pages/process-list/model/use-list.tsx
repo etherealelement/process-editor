@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { processApi } from "../api";
+import { processApi } from "../api/";
 
 export type ProcessListItem = {
   id: string;
   name: string;
 };
 
-export function useProcessList() {
+export function useList() {
   const [processList, setProcessList] = useState<ProcessListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const fetchList = () => {
+    setIsLoading(true);
     processApi
       .list()
       .then(setProcessList)
@@ -20,7 +22,7 @@ export function useProcessList() {
     fetchList();
   }, []);
 
-  const createProcess = async (name: string) => {
+  const create = async (name: string) => {
     await processApi.create(name);
     fetchList();
   };
@@ -30,15 +32,14 @@ export function useProcessList() {
     fetchList();
   };
 
-  const list = processList.map((item) => ({
+  const items = processList.map((item) => ({
     ...item,
     onDelete: () => deleteProcess(item.id),
   }));
 
   return {
-    list,
-    createProcess,
-    deleteProcess,
+    items,
+    create,
     isLoading,
   };
 }

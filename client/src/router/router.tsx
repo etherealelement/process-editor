@@ -1,20 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ProcessList } from "../pages/process-list";
+import { App } from "../app/app";
 import { ProcessPage } from "../pages/process";
-import { App } from "../app";
+import { ProcessListPage } from "../pages/process-list";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <App />,
     children: [
       {
         index: true,
-        element: <ProcessList></ProcessList>,
+        element: <ProcessListPage />,
       },
       {
         path: "process/:id",
-        element: <ProcessPage></ProcessPage>,
+        element: <ProcessPage />,
       },
     ],
   },
