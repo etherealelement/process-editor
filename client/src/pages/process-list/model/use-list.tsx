@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { processApi } from "../api/";
+import { useLoad } from "../../../shared/use-load";
 
 export type ProcessListItem = {
   id: string;
@@ -7,29 +8,20 @@ export type ProcessListItem = {
 };
 
 export function useList() {
-  const [processList, setProcessList] = useState<ProcessListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchList = () => {
-    setIsLoading(true);
-    processApi
-      .list()
-      .then(setProcessList)
-      .finally(() => setIsLoading(false));
-  };
-
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const {
+    data: processList = [],
+    isLoading,
+    refetch,
+  } = useLoad(() => processApi.list());
 
   const create = async (name: string) => {
     await processApi.create(name);
-    fetchList();
+    refetch();
   };
 
   const deleteProcess = async (id: string) => {
     await processApi.delete(id);
-    fetchList();
+    refetch();
   };
 
   const items = processList.map((item) => ({
